@@ -1,0 +1,28 @@
+{
+  "name": "rider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "concurrently \"node --watch src/index.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "amqplib": "^2.0.1",
+    "axios": "^1.16.1",
+    "cors": "^2.8.6",
+    "datauri": "^4.1.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.2",
+    "multer": "^2.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

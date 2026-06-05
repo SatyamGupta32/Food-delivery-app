@@ -1,0 +1,67 @@
+import Order from '../models/Order.js';
+import { getChannel } from './rabbitMQ.js';
+import { INTERNAL_SERVICE_KEY, PAYMENT_QUEUE, REALTIME_SERVICE } from './env.js';
+import axios from 'axios';
+
+export const startPaymentConsumer = async () => {
+    const channel = getChannel();
+
+
+    if (!channel) {
+        console.log('RabbitMQ channel not ready');
+        return;
+    }
+
+    channel.consume(PAYMENT_QUEUE, async (msg) => {
+        if (!msg) return;
+
+        try {
+            const event = JSON.parse(msg.content.toString());
+
+            if (event.type !== 'PAYMENT_SUCCESS') {
+                channel.ack(msg);
+                return;
+            }
+
+            const { orderId } = event.data;
+
+            const order = await Order.findOneAndUpdate(
+                {
+                    _id: orderId,
+                    paymentStatus: { $ne: 'paid' }
+                },
+                {
+                    $set: {
+                        paymentStatus: 'paid',
+                        status: 'placed',
+                    },
+                    $unset: {
+                        expireAt: 1,
+                    }
+                },
+                { returnDocument: 'after' }
+            );
+
+            if (!order) {
+                channel.ack(msg);
+                return;
+            }
+            console.log('☑️ order placed:', order._id);
+
+            //Socket work
+            await axios.post(`${REALTIME_SERVICE}/api/v1/internal/emit`, {
+                event: 'new-order',
+                room: `restaurant:${order.restaurantId}`,
+                payload: { orderId: order._id }
+            }, {
+                headers: {
+                    'x-internal-key': INTERNAL_SERVICE_KEY,
+                }
+            });
+
+            channel.ack(msg);
+        } catch (error) {
+            console.log('❌ payment consumer error:', error);
+        }
+    });
+}

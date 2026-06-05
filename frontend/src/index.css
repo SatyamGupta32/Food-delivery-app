@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffe4ec;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f57799;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e62e5f;
+}
+
+/* Thinner scrollbar for admin tab content panel */
+.admin-tab-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #f57799 #f3f4f6;
+}
+
+.admin-tab-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.admin-tab-scroll::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 999px;
+}
+
+.admin-tab-scroll::-webkit-scrollbar-thumb {
+    background: #f57799;
+    border-radius: 999px;
+}
+
+.admin-tab-scroll::-webkit-scrollbar-thumb:hover {
+    background: #e62e5f;
+}
