@@ -1,4 +1,4 @@
-﻿# 🍔 Food Delivery App
+# 🍔 Food Delivery App
 
 A full-stack **Food Delivery Platform** built in a modular service-based architecture. The repo includes a React frontend plus backend services for auth, restaurants, riders, admin, real-time updates, and utilities.
 
