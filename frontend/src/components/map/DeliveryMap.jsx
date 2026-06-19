@@ -103,7 +103,7 @@ const DeliveryMap = ({ order, role = 'rider', riderLocation: externalRiderLocati
                 : 'Waiting for rider location...';
 
         return (
-            <div className="flex items-center justify-center h-full min-h-[280px] gap-2 rounded-xl bg-white shadow-sm p-3">
+            <div className="flex items-center justify-center h-full min-h-70 gap-2 rounded-xl bg-white shadow-sm p-3">
                 <BiLoader className="w-5 h-5 text-gray-500 animate-spin" />
                 <p className="text-sm text-gray-500">{message}</p>
             </div>
@@ -113,8 +113,8 @@ const DeliveryMap = ({ order, role = 'rider', riderLocation: externalRiderLocati
     const riderLabel = role === 'rider' ? 'You (Rider)' : 'Rider';
 
     return (
-        <div className="rounded-xl bg-white shadow-lg p-2 aspect-square lg:aspect-auto lg:h-full min-h-[280px]">
-            <MapContainer center={riderLocation} zoom={14} className="h-full w-full rounded-lg min-h-[260px]">
+        <div className="rounded-xl bg-white shadow-lg p-2 aspect-square lg:aspect-auto lg:h-full min-h-70">
+            <MapContainer center={riderLocation} zoom={14} className="h-full w-full rounded-lg min-h-65">
                 <TileLayer
                     attribution="&copy; OpenStreetMap"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
